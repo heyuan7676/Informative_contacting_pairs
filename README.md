@@ -25,7 +25,7 @@ Code composition:
       - seqdata_pipeline_bam.sh: process bam files for ChIP-seq data.
                                   Running it takes 10 min in total (which resulted in very sparse signal)
 
-      - makingSets.sh: annotate the matrixeQTL results with the features; extract the positive and negative sets
+      - makingSets.sh and makingSets.R: annotate the matrixeQTL results with the features; extract the positive and negative sets
 
       - train_model.py: run exploratory analysis and machine learning model
 
