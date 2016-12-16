@@ -29,4 +29,5 @@ bash makingSets.sh
 python train_model.py
 
 features.txt: features to put in the model 
+
 chrlist.txt: chromosomes that provide the data
