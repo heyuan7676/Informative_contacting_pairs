@@ -1,5 +1,5 @@
-# Informative_contacts
 
+Motivation:
 
 Chromosome folding has been observed for a long time. People have shown that chromatin contacts in the 3-dimensional space play important roles in the genomic regulatory network. Enhancer - promoter interaction is one important type of long range interaction, that has been proved to be crucial in controlling gene expression levels. Also it has been shown that disruption of chromatin architecture would change gene expression levels. However, it is unclear yet how to distinguish between the contacting pairs involved in genetic regulation versus the contacting pairs of structural purpose. This question is very important in terms of understanding the role of folding in the genetic regulation network, and the mechanism behind chromatin architecture. 
 
@@ -7,27 +7,28 @@ From previous research work, it was observed that long range eQTL pairs are enri
 
 
 
-### To process fastq files for ATAC-seq data, and bam files for ChIP-seq data, the following two scripts were run
-
-
-ATAC-seq:
-bash seqdata_pipeline_fa.sh
-
-
-CTCF ChIP-seq:
-bash seqdata_pipeline_bam.sh
-
-
-### To annotate the matrixeQTL results with features and extract the positive and negative sets
-
-bash makingSets.sh
 
 
 
-###  Run exploratory analysis and machine learning model
 
-python train_model.py
 
-features.txt: features to put in the model 
+Code composition:
 
-chrlist.txt: chromosomes that provide the data
+   run.sh: runs the whole process
+
+      - seqdata_pipeline_fa.sh: process fastq files for ATAC-seq data. 
+                                  Alignment using bowtie2 takes 2.73 hours, file consversion takes 16 min, 
+                                peak calling takes 22 min using homer, and 17 min using macs2.
+                                  This was largely because of the deep sequencing in this dataset, where 104
+                                million paired reads were obtained.
+ 
+      - seqdata_pipeline_bam.sh: process bam files for ChIP-seq data.
+                                  Running it takes 10 min in total (which resulted in very sparse signal)
+
+      - makingSets.sh: annotate the matrixeQTL results with the features; extract the positive and negative sets
+
+      - train_model.py: run exploratory analysis and machine learning model
+
+          - features.txt: features to put in the model 
+
+          - chrlist.txt: chromosomes that provide the data
