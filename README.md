@@ -14,7 +14,7 @@ From previous research work, it was observed that long range eQTL pairs are enri
 
 Code composition:
 
-   run.sh: runs the whole process
+- run.sh: runs the whole process
 
       - seqdata_pipeline_fa.sh: process fastq files for ATAC-seq data. 
                                   Alignment using bowtie2 takes 2.73 hours, file consversion takes 16 min, 
