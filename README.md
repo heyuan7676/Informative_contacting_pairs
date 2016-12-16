@@ -7,3 +7,34 @@ From previous research work, it was observed that long range eQTL pairs are enri
 
 
 
+##########################################################################
+### To process fastq files for ATAC-seq data, and 
+### bam files for ChIP-seq data, the following two scripts were run
+##########################################################################
+
+
+ATAC-seq:
+bash seqdata_pipeline_fa.sh
+
+
+CTCF ChIP-seq:
+bash seqdata_pipeline_bam.sh
+
+
+################################################################### 
+### To annotate the matrixeQTL results with features and
+###    extract the positive and negative sets
+###################################################################
+
+bash makingSets.sh
+
+
+
+################################################################### 
+###  Run exploratory analysis and machine learning model
+###################################################################
+
+python train_model.py
+
+features.txt: features to put in the model 
+chrlist.txt: chromosomes that provide the data
