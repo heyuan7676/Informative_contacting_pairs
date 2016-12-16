@@ -1,4 +1,5 @@
 import os
+import sys
 import pandas as pd
 import numpy as np
 
@@ -18,7 +19,7 @@ from scipy.stats import chi2_contingency
 from scipy.stats import ranksums
 from scipy.stats import fisher_exact
 
-DATADIR = '/scratch1/battle-fs1/heyuan/project_informative_looping'
+DATADIR = sys.argv[1]
 PLOT = True
 
 
@@ -179,7 +180,7 @@ def py_ml_dt(X,y,test_X, test_y, validation_x=None, validation_y=None, permute=F
     if (validation_x is not None) and (validation_y is not None):
         val,test = [],[]
         for i in range(2,20):
-            clf = tree.DecisionTreeClassifier(max_depth = i, random_state=1)
+            clf = tree.DecisionTreeClassifier(max_depth = i, random_state=0)
             clf.fit(X, y)
             yhat_vali = clf.predict(validation_x)
             val.append(sum(np.array(yhat_vali) == validation_y) * 1.0 / len(validation_y))
@@ -199,7 +200,6 @@ def py_ml_dt(X,y,test_X, test_y, validation_x=None, validation_y=None, permute=F
             plt.close()
    
     optimal_i = range(2,20)[val.index(max(val))]
-    print 'Optimal maximum depth is: ', optimal_i
     clf = tree.DecisionTreeClassifier(max_depth = optimal_i, random_state=1)
     clf.fit(X,y)
     yhat = clf.predict(test_X)
@@ -389,7 +389,7 @@ def train_and_test(chrlist, features, different_chrs = True, useBinary = None, v
     true_accuracy = select_features(train_data, test_data, features, fig_fn = 'rf_features_true', 
                           method = 'random_forest', validate_using_diff_chr=validate_using_diff_chr)    
     # permutation
-    print 'Using permuted data:'
+    print 'Using permuted data (run 100 iterations):'
     accuracy = []
     for t in xrange(100):
         np.random.seed(t)
@@ -404,8 +404,9 @@ def train_and_test(chrlist, features, different_chrs = True, useBinary = None, v
     plt.figure()
     plt.hist(accuracy,bins=50, weights = np.ones_like(accuracy)/len(accuracy))
     plt.xlabel("Accuracy of permuted data")
-    plt.axvline(x=true_accuracy)
-    plt.savefig(os.path.join(DATADIR, 'plots','Distribution_accuracy_random_forest.png'))
+    plt.axvline(x=true_accuracy, color="red", label="True accuracy")
+    plt.legend()
+    plt.savefig(os.path.join(DATADIR, 'plots','Distribution_accuracy_permuted_rf.png'))
     plt.close()
      
     #### decision tree
@@ -414,7 +415,7 @@ def train_and_test(chrlist, features, different_chrs = True, useBinary = None, v
     true_accuracy = select_features(train_data, test_data, features, fig_fn = 'dt_features_true', 
                           method = 'decision_tree', validate_using_diff_chr=validate_using_diff_chr)    
     # permutation
-    print 'Using permuted data:'
+    print 'Using permuted data (run 100 iterations):'
     accuracy = []
     for t in xrange(100):
         np.random.seed(t)
@@ -429,8 +430,9 @@ def train_and_test(chrlist, features, different_chrs = True, useBinary = None, v
     plt.figure()
     plt.hist(accuracy,bins=50, weights = np.ones_like(accuracy)/len(accuracy))
     plt.xlabel("Accuracy of permuted data")
-    plt.plot((true_accuracy,0), (true_accuracy,1), 'k-', color='red',label="True accuracy")
-    plt.savefig(os.path.join(DATADIR, 'plots','Distribution_accuracy_decision_tree.png'))
+    plt.axvline(x=true_accuracy, color="red",label="True accuracy")
+    plt.legend()
+    plt.savefig(os.path.join(DATADIR, 'plots','Distribution_accuracy_permuted_dt.png'))
     plt.close()
  
     

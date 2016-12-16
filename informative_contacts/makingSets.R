@@ -8,9 +8,11 @@ suppressMessages(library(dplyr))
 args <- commandArgs(TRUE)
 tissue = args[1]   # Adipose_Subcutaneous
 chr = args[2]
+basedir = args[3]
+
 input_dir = '/scratch0/battle-fs1/heyuan/long_range/SNP_gene/'
-feature_dir = '/scratch1/battle-fs1/heyuan/project_informative_looping/features/'
-output_dir = '/scratch1/battle-fs1/heyuan/project_informative_looping/data/'
+feature_dir = paste0(basedir, "/features/")
+output_dir = paste0(basedir, "/data/")
 
 
 ###################################################################################

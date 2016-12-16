@@ -1,11 +1,10 @@
-#!/bin/bash -l
+#!/bin/bash 
 
-#SBATCH --time 5:00:00
-#SBATCH --nodes=1
-#SBATCH --ntasks=10
+BASEDIR=$1
 
-DATADIR=/scratch1/battle-fs1/heyuan/project_informative_looping/annotations
-FEATUREDIR=/scratch1/battle-fs1/heyuan/project_informative_looping/features
+
+DATADIR=${BASEDIR}/annotations
+FEATUREDIR=${BASEDIR}/features
 
 BT_DIR=/scratch1/battle-fs1/tools_shared/bowtie2-2.2.8
 SAMTOOLS_DIR=/scratch1/battle-fs1/tools_shared/samtools-1.2

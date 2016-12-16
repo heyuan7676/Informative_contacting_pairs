@@ -1,9 +1,6 @@
-#!/bin/bash -l
+#!/bin/bash 
 
-#SBATCH --time 10:00:00
-#SBATCH --nodes=1
-#SBATCH --ntasks=5
-
+BASEDIR=$1
 
 
 #################################################################
@@ -33,5 +30,5 @@
 for i in {13..22}
 do
     echo ${i}
-    ~/R-3.2.0/bin/Rscript makingSets.R Adipose_Subcutaneous chr${i}
+    ~/R-3.2.0/bin/Rscript makingSets.R Adipose_Subcutaneous chr${i} ${BASEDIR}
 done

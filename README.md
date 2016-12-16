@@ -1,5 +1,4 @@
-
-Motivation:
+Introduction:
 
 Chromosome folding has been observed for a long time. People have shown that chromatin contacts in the 3-dimensional space play important roles in the genomic regulatory network. Enhancer - promoter interaction is one important type of long range interaction, that has been proved to be crucial in controlling gene expression levels. Also it has been shown that disruption of chromatin architecture would change gene expression levels. However, it is unclear yet how to distinguish between the contacting pairs involved in genetic regulation versus the contacting pairs of structural purpose. This question is very important in terms of understanding the role of folding in the genetic regulation network, and the mechanism behind chromatin architecture. 
 
@@ -9,12 +8,9 @@ From previous research work, it was observed that long range eQTL pairs are enri
 
 
 
-
-
-
 Code composition:
 
-- run.sh: runs the whole process
+  - run.sh: runs the whole process
 
       - seqdata_pipeline_fa.sh: process fastq files for ATAC-seq data. 
                                   Alignment using bowtie2 takes 2.73 hours, file consversion takes 16 min, 
@@ -32,3 +28,8 @@ Code composition:
           - features.txt: features to put in the model 
 
           - chrlist.txt: chromosomes that provide the data
+
+
+
+Please note that seqdata_pipeline_fa.sh and seqdata_pipeline_bam.sh were
+commented in run.sh. You could uncomment that to run these two.

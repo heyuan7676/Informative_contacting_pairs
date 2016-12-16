@@ -4,18 +4,17 @@
 #SBATCH --nodes=2
 #SBATCH --ntasks=15
 
+BASEDIR=/scratch1/battle-fs1/heyuan/project_informative_looping
+FROM_BEGINNING=false
+
+mkdir ${BASEDIR}/plots
+mkdir ${BASEDIR}/data
+mkdir ${BASEDIR}/features
+
+
+
 SCRIPTDIR=/home/yhe23/project_informative_looping
 cd ${SCRIPTDIR}
-
-
-
-#### !!! Please include the following lines to ~/.bash_profile 
-#
-# PATH=$PATH:/scratch0/battle-fs1/heyuan/HOMER/./    
-# PATH=$PATH:/scratch0/battle-fs1/heyuan/HOMER/./bin/
-# PATH=$PATH:/scratch1/battle-fs1/heyuan/anaconda/bin/
-
-
 
 
 
@@ -24,14 +23,16 @@ cd ${SCRIPTDIR}
 ### 1. download and process data from ENCODE 
 ###################################################################
 
-### ATAC-seq
-# bash seqdata_pipeline_fa.sh
-
-
-
-### CTCF ChIP-seq
-# bash seqdata_pipeline_bam.sh
-
+if ${FROM_BEGINNING}
+then 
+    bash seqdata_pipeline_fa.sh ${BASEDIR}  ## ATAC-seq
+    bash seqdata_pipeline_bam.sh ${BASEDIR} ## CTCF ChIP-seq
+    cp /scratch1/battle-fs1/heyuan/project_informative_looping/features/GSE63525_GM12878* ${BASEDIR}/features
+    cp /scratch1/battle-fs1/heyuan/project_informative_looping/features/segments_Adipose_Subcutaneous.bed ${BASEDIR}/features
+else
+    echo "Not run"
+    cp /scratch1/battle-fs1/heyuan/project_informative_looping/features/* ${BASEDIR}/features
+fi
 
 
 
@@ -40,7 +41,7 @@ cd ${SCRIPTDIR}
 ###    extract the positive and negative sets
 ###################################################################
 
-bash makingSets.sh
+# bash makingSets.sh ${BASEDIR}
 
 
 
@@ -48,7 +49,7 @@ bash makingSets.sh
 ### 3. run exploratory analysis and machine learning model
 ###################################################################
 
-/scratch1/battle-fs1/heyuan/anaconda/bin/python train_model.py
+python train_model.py ${BASEDIR} 
 
 
 
