@@ -1,7 +1,7 @@
 #!/bin/bash 
 
 BASEDIR=$1
-
+TISSUE=$2
 
 #################################################################
 ## shrink the dataset, to reduce time reading in
@@ -27,8 +27,8 @@ BASEDIR=$1
 ## making the positive sets and negative sets
 #################################################################
 
-for i in {13..22}
+for i in {22..21}
 do
-    echo ${i}
-    ~/R-3.2.0/bin/Rscript makingSets.R Adipose_Subcutaneous chr${i} ${BASEDIR}
+    echo chr${i}
+    /home/yhe23/R-3.2.0/bin/Rscript makingSets.R ${TISSUE} chr${i} ${BASEDIR}
 done

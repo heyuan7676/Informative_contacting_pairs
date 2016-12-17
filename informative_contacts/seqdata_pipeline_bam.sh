@@ -1,16 +1,15 @@
 #!/bin/bash 
 
 BASEDIR=$1
+tissue=$2
 
-
-DATADIR=${BASEDIR}/annotations
+DATADIR=/scratch1/battle-fs1/heyuan/project_informative_looping/annotations
 FEATUREDIR=${BASEDIR}/features
 
 BT_DIR=/scratch1/battle-fs1/tools_shared/bowtie2-2.2.8
 SAMTOOLS_DIR=/scratch1/battle-fs1/tools_shared/samtools-1.2
 LOGFILE=logfile.txt
 
-tissue=Adipose_Subcutaneous
 
 [ -z "$DATADIR" ] && { echo "Need to set BASEDIR"; exit 1; }
 [ -z "$BT_DIR" ] && { echo "Need to set Bowtie Dir"; exit 1;  }

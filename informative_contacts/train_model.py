@@ -30,7 +30,7 @@ bins_dict = {"Quiescent":1, "ConstitutiveHet":2,"FacultativeHet":3,
 
 
 def readin(chr):
-    fn = os.path.join(DATADIR, 'data','Adipose_Subcutaneous_%s_sets.txt' % chr)
+    fn = os.path.join(DATADIR, 'data','%s_%s_sets.txt' % (TISSUE, chr) )
     data = pd.read_csv(fn, sep=' ')
     data['segments_segway_gene_N'] = [bins_dict[x] for x in np.array(data['segments_segway_gene_bin'])]
     data['segments_segway_snp_N'] = [bins_dict[x] for x in np.array(data['segments_segway_snp_bin'])]
@@ -484,8 +484,8 @@ def main():
                          'hicvalues','distance', 'same_domain'])
     
     ## explore the features
-    # for c in chrlist:
-    #     exploratory(c)
+    for c in chrlist:
+        exploratory(c)
     
     ## construct the model and test
     print "Cross validation"
@@ -496,5 +496,6 @@ def main():
     train_and_test(chrlist, features, different_chrs=True, validate_using_diff_chr=True)
     
 if __name__ == "__main__":
+    TISSUE = os.environ['TISSUE']
     main()
 
